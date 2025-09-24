@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="supported-color-schemes" content="light dark">
+    <meta name="color-scheme" content="light dark">
+    <title>🚀 Welcome to the C# Inner Circle!</title>
+    <style>
+        /* CSS Variables for Dark Mode Support */
+        :root {
+            --primary-purple: #512BD4;
+            --success-green: #239B56;
+            --accent-orange: #FF6B35;
+            --dark-bg: #1E1E1E;
+            --light-bg: #FFFFFF;
+            --text-light: #FFFFFF;
+            --text-dark: #2C3E50;
+            --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --hover-transform: translateY(-2px);
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --main-bg: var(--dark-bg);
+                --main-text: var(--text-light);
+                --card-bg: #2D2D2D;
+                --border-color: #404040;
+            }
+        }
+
+        /* Light Mode (Default) */
+        :root {
+            --main-bg: var(--light-bg);
+            --main-text: var(--text-dark);
+            --card-bg: #FFFFFF;
+            --border-color: #E1E5E9;
+        }
+
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--main-text);
+            background: var(--main-bg);
+            margin: 0;
+            padding: 0;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        .email-container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: var(--main-bg);
+            font-size: 16px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-purple) 0%, #764ba2 100%);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 20px;
+        }
+
+        .logo-container img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .hero-title {
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 20px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+            margin: 10px 0 30px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Animated Code Block */
+        .code-animation {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+            font-family: 'Fira Code', 'JetBrains Mono', monospace;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .code-line {
+            color: #58D68D;
+            font-size: 14px;
+            margin: 5px 0;
+            opacity: 0;
+            animation: typewriter 0.5s ease-in-out forwards;
+        }
+
+        .code-line:nth-child(1) { animation-delay: 0.5s; }
+        .code-line:nth-child(2) { animation-delay: 1s; }
+        .code-line:nth-child(3) { animation-delay: 1.5s; }
+        .code-line:nth-child(4) { animation-delay: 2s; }
+        .code-line:nth-child(5) { animation-delay: 2.5s; }
+
+        @keyframes typewriter {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .keyword { color: #569CD6; }
+        .string { color: #D69E2E; }
+        .comment { color: #6A9955; }
+
+        /* Primary CTA Button */
+        .cta-primary {
+            display: inline-block;
+            background: var(--accent-orange);
+            color: white !important;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            margin: 20px 10px;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-primary:hover {
+            transform: var(--hover-transform);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+            background: #E55A2B;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--card-bg);
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 3px solid var(--primary-purple);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .stat-item {
+            padding: 20px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: var(--hover-transform);
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-purple);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Trending Content Section */
+        .trending-section {
+            background: var(--main-bg);
+            padding: 40px 20px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--main-text);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .trending-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .trending-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .trending-card:hover {
+            transform: var(--hover-transform);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .trending-badge {
+            background: var(--success-green);
+            color: white;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .trending-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--main-text);
+            margin: 10px 0;
+        }
+
+        .trending-meta {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Personalization Section */
+        .personalization-section {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+            padding: 40px 20px;
+        }
+
+        .path-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .path-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .path-card:hover {
+            transform: var(--hover-transform);
+            border-color: var(--primary-purple);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .path-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .path-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--main-text);
+            margin-bottom: 10px;
+        }
+
+        .path-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* AI Training Section */
+        .ai-training-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 50px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-training-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="ai-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23ai-pattern)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .ai-hero-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, #00d4ff 0%, #ff6b35 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .ai-hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .training-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .training-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .training-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .training-card:hover::before {
+            left: 100%;
+        }
+
+        .training-card:hover {
+            transform: var(--hover-transform) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .training-level {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-orange), #ff8c42);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .training-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .training-stars {
+            color: #ffd700;
+            font-size: 14px;
+        }
+
+        .training-score {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .training-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .training-description {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .training-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .training-duration,
+        .training-weeks {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .training-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-orange);
+            margin-bottom: 15px;
+        }
+
+        .training-price .original-price {
+            font-size: 16px;
+            text-decoration: line-through;
+            color: rgba(255, 255, 255, 0.6);
+            margin-right: 10px;
+        }
+
+        .cta-training {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-orange), #ff8c42);
+            color: white !important;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            position: relative;
+            z-index: 3;
+        }
+
+        .cta-training:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.5);
+            background: linear-gradient(135deg, #ff8c42, var(--accent-orange));
+        }
+
+        .training-features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 40px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 200px;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover .feature-icon {
+            background: var(--accent-orange);
+            transform: scale(1.1);
+        }
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+        }
+
+        /* Community Showcase */
+        .community-section {
+            background: var(--card-bg);
+            padding: 40px 20px;
+        }
+
+        .community-feed {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .feed-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e6ed;
+        }
+
+        .feed-item:last-child {
+            border-bottom: none;
+        }
+
+        .feed-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-purple);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 15px;
+        }
+
+        .feed-content {
+            flex: 1;
+        }
+
+        .feed-text {
+            font-size: 14px;
+            color: var(--main-text);
+            margin: 0;
+        }
+
+        .feed-time {
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        /* FOMO Section */
+        .fomo-section {
+            background: linear-gradient(135deg, var(--primary-purple) 0%, #764ba2 100%);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .fomo-counter {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent-orange);
+            margin: 20px 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .fomo-text {
+            font-size: 18px;
+            margin: 15px 0;
+            opacity: 0.9;
+        }
+
+        .cta-secondary {
+            display: inline-block;
+            background: white;
+            color: var(--primary-purple) !important;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            margin: 20px 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-secondary:hover {
+            transform: var(--hover-transform);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Footer */
+        .footer-section {
+            background: #091227;
+            color: white;
+            padding: 30px 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .footer-text a {
+            color: #58D68D;
+            text-decoration: none;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-links a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-purple);
+            transform: var(--hover-transform);
+        }
+
+        .social-links img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 600px) {
+            .hero-title {
+                font-size: 24px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .trending-grid,
+            .path-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .code-animation {
+                font-size: 12px;
+                padding: 15px;
+            }
+            
+            .cta-primary,
+            .cta-secondary {
+                padding: 14px 24px;
+                font-size: 16px;
+                display: block;
+                margin: 10px auto;
+                max-width: 250px;
+            }
+
+            .fomo-counter {
+                font-size: 36px;
+            }
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .trending-card,
+            .path-card {
+                border: 2px solid var(--main-text);
+            }
+        }
+
+        /* Email Client Specific Fixes */
+        
+        /* Outlook */
+        [owa] .hero-section,
+        [owa] .fomo-section {
+            background-image: none !important;
+        }
+
+        /* Gmail */
+        .gmail-blend-screen { background-blend-mode: screen; }
+        .gmail-blend-multiply { background-blend-mode: multiply; }
+
+        /* Apple Mail */
+        @supports (-webkit-appearance: none) {
+            .code-animation {
+                background: rgba(0, 0, 0, 0.9);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="logo-container">
+                <a href="https://www.c-sharpcorner.com" title="C# Corner" style="text-decoration: none;">
+                    <img src="https://www.c-sharpcorner.com/images/email-template-assets/csharp-logo.png" alt="C# Corner Logo" width="200">
+                </a>
+            </div>
+            
+            <h1 class="hero-title">🎉 Welcome to the C# Inner Circle, [First Name]!</h1>
+            <p class="hero-subtitle">You just joined <strong>3.2M+ developers</strong> who refuse to stay ordinary.</p>
+            
+            <!-- Animated Code Block -->
+            <div class="code-animation">
+                <div class="code-line"><span class="keyword">using</span> System;</div>
+                <div class="code-line"><span class="keyword">public class</span> WelcomeToCSharpCorner {</div>
+                <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">static void</span> Main() => Console.WriteLine(<span class="string">"Hello, Future C# Rockstar!"</span>);</div>
+                <div class="code-line">}</div>
+                <div class="code-line"><span class="comment">// Your journey to greatness starts here! 🚀</span></div>
+            </div>
+            
+            <a href="https://www.c-sharpcorner.com/members/dashboard" class="cta-primary">🚀 Start My Developer Journey</a>
+        </div>
+
+        <!-- Instant Value - Stats Section -->
+        <div class="stats-section">
+            <h2 class="section-title">While you were signing up, <strong>1,247 developers</strong> just leveled up their skills!</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="3200000">3.2M+</span>
+                    <div class="stat-label">Active Developers</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="150000">150K+</span>
+                    <div class="stat-label">Expert Articles</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="2800000">2.8M+</span>
+                    <div class="stat-label">Code Solutions</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="12847">12.8K+</span>
+                    <div class="stat-label">Weekly Active Users</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="250+">250+</span>
+                    <div class="stat-label">Conferences</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="2000">2K+</span>
+                    <div class="stat-label">Shows</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trending Content Section -->
+        <div class="trending-section">
+            <h2 class="section-title">🔥 What's Trending RIGHT NOW:</h2>
+            
+            <div class="trending-grid">
+                <div class="trending-card">
+                    <div class="trending-badge">🔥 HOT</div>
+                    <h3 class="trending-title">C# 12 Features That Will Blow Your Mind</h3>
+                    <div class="trending-meta">📖 5 min read • 🔥 2.1K views today</div>
+                </div>
+                
+                <div class="trending-card">
+                    <div class="trending-badge">⚡ TRENDING</div>
+                    <h3 class="trending-title">Building Blazor Apps Like a Pro</h3>
+                    <div class="trending-meta">📺 Video • ⭐ 4.9/5 rating</div>
+                </div>
+                
+                <div class="trending-card">
+                    <div class="trending-badge">💎 PREMIUM</div>
+                    <h3 class="trending-title">Azure DevOps Masterclass</h3>
+                    <div class="trending-meta">🎓 Course • 💼 Career Boost</div>
+                </div>
+                <div class="trending-card">
+                    <div class="trending-badge">💎 PREMIUM</div>
+                    <h3 class="trending-title">Be a Solution Architect Masterclass</h3>
+                    <div class="trending-meta">🎓 Course • 💼 Career Boost</div>
+                </div>  
+
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="https://www.c-sharpcorner.com/trending" class="cta-primary">🔥 See What's Trending</a>
+            </div>
+        </div>
+
+        <!-- Personalized Path Selection -->
+        <div class="personalization-section">
+            <h2 class="section-title">🎯 What describes you best? <br><small style="color: #666; font-weight: 400;">Choose your adventure and get personalized content!</small></h2>
+            
+            <div class="path-grid">
+                <a href="https://www.c-sharpcorner.com/beginners" class="path-card">
+                    <span class="path-icon">🚀</span>
+                    <h3 class="path-title">New to C#</h3>
+                    <p class="path-description">Start with fundamentals, build your first apps, and join our beginner-friendly community.</p>
+                </a>
+                
+                <a href="https://www.c-sharpcorner.com/experts" class="path-card">
+                    <span class="path-icon">💼</span>
+                    <h3 class="path-title">Experienced Dev</h3>
+                    <p class="path-description">Advanced patterns, architecture deep-dives, and cutting-edge .NET technologies.</p>
+                </a>
+                
+                <a href="https://www.c-sharpcorner.com/authors" class="path-card">
+                    <span class="path-icon">📚</span>
+                    <h3 class="path-title">Content Creator</h3>
+                    <p class="path-description">Share your knowledge, build your brand, and earn rewards for your contributions.</p>
+                </a>
+                
+                <a href="https://www.c-sharpcorner.com/jobs" class="path-card">
+                    <span class="path-icon">🎯</span>
+                    <h3 class="path-title">Job Seeker</h3>
+                    <p class="path-description">Land your dream role with our career resources, interview prep, and job board.</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- AI Training Section -->
+        <div class="ai-training-section">
+            <h2 class="ai-hero-title">🤖 Transform Your Career with AI</h2>
+            <p class="ai-hero-subtitle">Master the most in-demand AI skills with our comprehensive training programs taught by industry leaders from Google, Microsoft, and OpenAI.</p>
+            
+            <!-- Training Features -->
+            <div class="training-features">
+                <div class="feature-item">
+                    <div class="feature-icon">👨‍🏫</div>
+                    <h3 class="feature-title">Expert Instructors</h3>
+                    <p class="feature-desc">Learn from industry leaders at top tech companies</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🛠️</div>
+                    <h3 class="feature-title">Hands-on Projects</h3>
+                    <p class="feature-desc">Build real-world AI applications for your portfolio</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Career Support</h3>
+                    <p class="feature-desc">Get personalized guidance and interview prep</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">♾️</div>
+                    <h3 class="feature-title">Lifetime Access</h3>
+                    <p class="feature-desc">Keep learning as AI technology evolves</p>
+                </div>
+            </div>
+
+            <!-- Training Programs -->
+            <div class="training-grid">
+                <div class="training-card">
+                    <div class="training-level">Foundation</div>
+                    <div class="training-rating">
+                        <div class="training-stars">⭐⭐⭐⭐⭐</div>
+                        <div class="training-score">4.9</div>
+                    </div>
+                    <h3 class="training-name">AI & Machine Learning</h3>
+                    <p class="training-description">Master artificial intelligence and machine learning fundamentals. Build intelligent systems and understand core AI concepts.</p>
+                    <div class="training-meta">
+                        <div class="training-duration">🕐 30h</div>
+                        <div class="training-weeks">📅 4w</div>
+                    </div>
+                    <div class="training-price">
+                        <span class="original-price">$899</span>
+                        $699
+                    </div>
+                    <a href="https://learnai.c-sharpcorner.com/trainings/ai-machine-learning" class="cta-training">🚀 Enroll Now</a>
+                </div>
+
+                
+
+                <div class="training-card">
+                    <div class="training-level">Focused</div>
+                    <div class="training-rating">
+                        <div class="training-stars">⭐⭐⭐⭐⭐</div>
+                        <div class="training-score">4.9</div>
+                    </div>
+                    <h3 class="training-name">Mastering Prompt Engineering</h3>
+                    <p class="training-description">Master prompt design, testing, and optimization. Become an expert in AI communication and unleash AI's full potential.</p>
+                    <div class="training-meta">
+                        <div class="training-duration">🕐 10h</div>
+                        <div class="training-weeks">📅 2w</div>
+                    </div>
+                    <div class="training-price">
+                        <span class="original-price">$599</span>
+                        $499
+                    </div>
+                    <a href="https://learnai.c-sharpcorner.com/trainings/prompt-engineering" class="cta-training">🚀 Enroll Now</a>
+                </div>
+
+                <div class="training-card">
+                    <div class="training-level">Intermediate</div>
+                    <div class="training-rating">
+                        <div class="training-stars">⭐⭐⭐⭐⭐</div>
+                        <div class="training-score">4.7</div>
+                    </div>
+                    <h3 class="training-name">GitHub Copilot Training</h3>
+                    <p class="training-description">Learn how to leverage GitHub Copilot for efficient coding. Enhance your productivity with AI-powered development.</p>
+                    <div class="training-meta">
+                        <div class="training-duration">🕐 5h</div>
+                        <div class="training-weeks">📅 1w</div>
+                    </div>
+                    <div class="training-price">
+                        <span class="original-price">$149</span>
+                        $99
+                    </div>
+                    <a href="https://learnai.c-sharpcorner.com/trainings/github-copilot-training" class="cta-training">🚀 Enroll Now</a>
+                </div>
+
+            </div>
+
+            <!-- Special Offer -->
+            <div style="text-align: center; margin-top: 40px; position: relative; z-index: 2;">
+                <h3 style="color: var(--accent-orange); font-size: 20px; margin-bottom: 15px;">🎁 Welcome Special: Get 30% OFF Any Training!</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 20px;">Limited time offer for new C# Corner members. Use code: <strong style="color: white;">WELCOME30</strong></p>
+                <a href="https://learnai.c-sharpcorner.com/trainings" class="cta-primary" style="background: linear-gradient(135deg, var(--success-green), #2ecc71);">🎓 Explore All AI Trainings</a>
+            </div>
+        </div>
+
+        <!-- Community Showcase -->
+        <div class="community-section">
+            <h2 class="section-title">👥 You're Not Just Joining a Website—You're Joining a Movement!</h2>
+            
+            <div class="community-feed">
+                <div class="feed-item">
+                    <div class="feed-avatar">S</div>
+                    <div class="feed-content">
+                        <p class="feed-text"><strong>Sarah from Microsoft</strong> just published "Advanced LINQ Techniques"</p>
+                        <div class="feed-time">2 minutes ago</div>
+                    </div>
+                </div>
+                
+                <div class="feed-item">
+                    <div class="feed-avatar">M</div>
+                    <div class="feed-content">
+                        <p class="feed-text"><strong>Mike from Google</strong> answered a Blazor question and earned 50 tokens!</p>
+                        <div class="feed-time">5 minutes ago</div>
+                    </div>
+                </div>
+                
+                <div class="feed-item">
+                    <div class="feed-avatar">A</div>
+                    <div class="feed-content">
+                        <p class="feed-text"><strong>Amit</strong> completed the "C# Fundamentals" learning path 🎉</p>
+                        <div class="feed-time">8 minutes ago</div>
+                    </div>
+                </div>
+                
+                <div class="feed-item">
+                    <div class="feed-avatar">L</div>
+                    <div class="feed-content">
+                        <p class="feed-text"><strong>Lisa</strong> just got promoted to Senior Developer! 🚀</p>
+                        <div class="feed-time">15 minutes ago</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div style="text-align: center; margin-top: 30px;">
+                <h3 style="color: #512BD4; margin-bottom: 20px;">🎁 Welcome Bonus: Complete Your Profile & Get 100 Tokens!</h3>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <a href="https://www.c-sharpcorner.com/members/profile" class="cta-primary">📝 Complete Profile</a>
+                    <a href="https://www.c-sharpcorner.com/members/dashboard" class="cta-primary">💬 Join Discussions</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOMO Section -->
+        <div class="fomo-section">
+            <h2 style="font-size: 28px; margin-bottom: 20px;">⚡ Don't Be the Developer Who Waits</h2>
+            
+            <div class="fomo-counter" id="activeCounter">12,847</div>
+            <p class="fomo-text">members were active <strong>THIS WEEK</strong></p>
+            <p class="fomo-text">Your breakthrough could be one article away.</p>
+            
+            <a href="https://www.c-sharpcorner.com" class="cta-secondary">🔥 Explore Now - Limited Time!</a>
+            
+            <div style="margin-top: 20px; font-size: 14px; opacity: 0.8;">
+                ⏰ <strong>Only 48 hours</strong> to claim your personalized learning path and welcome bonuses!
+            </div>
+        </div>
+        <br/>
+
+        <!-- Footer -->
+        <div class="footer-section">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-text">&copy; 2025 C# Corner. All rights reserved.</div>
+                    <div class="footer-text" style="margin-top: 10px;">
+                        Questions? Reply to this email or visit our 
+                        <a href="https://www.c-sharpcorner.com/help">Help Center</a>
+                    </div>
+                    <div class="footer-text" style="margin-top: 10px;">
+                        <a href="https://www.c-sharpcorner.com/unsubscribe" style="color: #ccc; font-size: 12px;">Unsubscribe</a> | 
+                        <a href="https://www.c-sharpcorner.com/privacy" style="color: #ccc; font-size: 12px;">Privacy Policy</a>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://www.facebook.com/CsharpCorner" title="Facebook" target="_blank">
+                        <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/colored/facebook@2x.png" alt="Facebook" width="20" height="20">
+                    </a>
+                    <a href="https://twitter.com/csharpcorner" title="X (Twitter)" target="_blank">
+                        <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/colored/twitter@2x.png" alt="X" width="20" height="20">
+                    </a>
+                    <a href="https://www.instagram.com/csharpcorner" title="Instagram" target="_blank">
+                        <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/colored/instagram@2x.png" alt="Instagram" width="20" height="20">
+                    </a>
+                    <a href="https://www.linkedin.com/company/csharpcorner/" title="LinkedIn" target="_blank">
+                        <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/colored/linkedin@2x.png" alt="LinkedIn" width="20" height="20">
+                    </a>
+                    <a href="https://www.youtube.com/@CSharpDotTV" title="YouTube" target="_blank">
+                        <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/colored/youtube@2x.png" alt="YouTube" width="20" height="20">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden elements for screen readers -->
+    <div class="sr-only">
+        <p>This email contains interactive elements and animations. If you're using a screen reader, please visit our accessible version at c-sharpcorner.com/accessible-welcome</p>
+    </div>
+
+    <!-- Enhanced JavaScript for Email Clients that Support It -->
+    <script>
+        // Only run if JavaScript is supported (rare in email clients, but good for testing)
+        if (typeof window !== 'undefined') {
+            // Counter animation
+            function animateCounter(element, target, duration = 2000) {
+                const start = 0;
+                const increment = target / (duration / 16);
+                let current = start;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.floor(current).toLocaleString();
+                }, 16);
+            }
+            
+            // Animate stats on load
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+                    statNumbers.forEach(stat => {
+                        const target = parseInt(stat.getAttribute('data-target'));
+                        animateCounter(stat, target, 1500);
+                    });
+                }, 500);
+            });
+        }
+    </script>
+</body>
+</html>
